@@ -23,7 +23,7 @@ function App() {
     <button>Lisa toode</button>
     </Link>
 
-    <Link to="/manage-prodcut">
+    <Link to="/manage-product">
     <button>Manage products</button>
     </Link>
 
@@ -36,7 +36,7 @@ function App() {
         <Route path="/cart" element={ <Cart />} />
         <Route path="/add-product" element={ <AddProduct />} />
         <Route path="/edit-product" element={ <EditProduct />} />
-        <Route path="/manage-prodcut" element={ <ManageProduct />} />
+        <Route path="/manage-product" element={ <ManageProduct />} />
         <Route path="/manage-categories" element={ <ManageCategories />} />
       </Routes>
     </>
