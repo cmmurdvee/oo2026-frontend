@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Product } from "../../models/Product";
 
-function AddProdcut() {
+function AddProduct() {
     const [newProduct, setNewProduct] = useState<Product>({
         name: "",
         description: "",
@@ -44,4 +44,4 @@ function AddProdcut() {
   )
 }
 
-export default AddProdcut
+export default AddProduct
