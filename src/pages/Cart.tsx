@@ -92,10 +92,13 @@ export default Cart
 // Tühjenda funktsioon - tehtud
 // Ütle kui ostukorv tühi on - tehtud
 // Ostukorvi kogusumma arvutamine - tehtud
-// Backendi uue tellimuse saatmine
+// Backendi uue tellimuse saatmine - tehtud
+// Signup --> isiku lisamine - tehtud
 
-// Signup --> isiku lisamine + aadressi
+// Profile --> aadressi lisamine
 // Login, aga tokenit ei hakka väljastama
 
 // ProductDetails
 // EditProduct
+
+//API p2ringud: pakiautomaadid
