@@ -6,7 +6,7 @@ function ManageProduct() {
 
 
     useEffect(() => {
-       fetch(import.meta.env.VITE_BACK_URL + "/products")
+       fetch(import.meta.env.VITE_BACK_URL + "/products/admin")
         .then(res => res.json())
         .then(json => setProducts(json))
     }, []);
