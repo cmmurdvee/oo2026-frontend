@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Product } from "../models/Product";
 import type { Category } from "../models/Category";
+import type { OrderRow } from "../models/OrderRow";
 
 // renderdamine --> esmakordne componendi peale tulek
 // re-renderdamine --> componendi HTMLs muutujate olekute muutmine
@@ -54,17 +55,19 @@ function HomePage() {
     }
 
     const addToCart = (product: Product) => {
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]"); //localstorage-st votmiseks
-      const foundProduct = cart.find(cartProduct => cartProduct.product.id === product.id);
+      const cart: OrderRow[] = JSON.parse(localStorage.getItem("cart") || "[]"); //localstorage-st votmiseks
+      const foundProduct = cart.find(orderRow => orderRow.product.id === product.id);
       if (foundProduct){
         foundProduct.quantity++;
-      } else {
-        cart.push({product: product, quantity: 1});
-      }
-      cart.push()
-      localStorage.setItem("cart", JSON.stringify(cart)); //localstorage-sse lisamiseks
+        //foundProduct.quantity += 1;
+        //foundProduct.quantity = foundProduct.quantity + 1;
+    } else {
+      cart.push({product: product, quantity: 1});
     }
-    
+    //cart.push <--- maha
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
     //tolge https://react.i18next.com/guides/quick-start
   return (
     <div>
