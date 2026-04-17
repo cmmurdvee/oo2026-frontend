@@ -42,6 +42,19 @@ function Cart() {
     return sum;
   }
 
+  const makeOrder = () => {
+    const payload = orderRows.map(orderRows => ({productId: orderRows.product.id, quantity: orderRows.quantity}));
+
+    fetch(import.meta.env.VITE_BACK_URL + "/orders?personId=1", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }) .then(res => res.json())
+    .then(json => alert("Lisasid edukalt tellimuse ID-ga: " + json.id))
+  }
+
   return (
     <div>
       {orderRows.length > 0 && <button onClick={() => emptyCart()}>Tühjenda</button>}
@@ -60,16 +73,25 @@ function Cart() {
         </div>
       )}
 
-      {orderRows.length > 0 && <div>Kokku: {calculateTotal()} €</div> }
+      {orderRows.length > 0 && 
+        <>
+          <div>Kokku: {calculateTotal()}</div>
+          <button onClick={() => makeOrder()}>Telli</button>
+          <select>
+            <option>Pakiautomaat 1</option>
+            <option>Pakiautomaat 2</option>
+          </select>
+        </> }
+      
     </div>
   )
 }
 
 export default Cart
 
-// Tühjenda funktsioon
-// Ütle kui ostukorv tühi on
-// Ostukorvi kogusumma arvutamine
+// Tühjenda funktsioon - tehtud
+// Ütle kui ostukorv tühi on - tehtud
+// Ostukorvi kogusumma arvutamine - tehtud
 // Backendi uue tellimuse saatmine
 
 // Signup --> isiku lisamine + aadressi
