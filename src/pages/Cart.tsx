@@ -1,5 +1,5 @@
-import { useState } from "react"
-import type { OrderRow } from "../models/OrderRow";
+import { useState } from 'react'
+import { type OrderRow } from '../models/OrderRow';
 
 function Cart() {
   const [orderRows, setOrderRows] = useState<OrderRow[]>(JSON.parse(localStorage.getItem("cart") || "[]"));
@@ -12,7 +12,7 @@ function Cart() {
   }
 
   const decreaseQuantity = (index: number) => {
-    const cart = [...orderRows]
+    const cart = [...orderRows];
     cart[index].quantity--;
     if (cart[index].quantity === 0) {
       cart.splice(index,1);
@@ -22,7 +22,7 @@ function Cart() {
   }
 
   const increaseQuantity = (index: number) => {
-    const cart = [...orderRows]
+    const cart = [...orderRows];
     cart[index].quantity++;
     setOrderRows(cart);
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -37,22 +37,33 @@ function Cart() {
   // if (false && true)
 
   const calculateTotal = () => {
-    let sum = 0
-    orderRows.forEach(orderRows => sum = sum + orderRows.product.price * orderRows.quantity)
+    let sum = 0;
+    orderRows.forEach(orderRow => sum = sum + orderRow.product.price * orderRow.quantity);
     return sum;
   }
 
   const makeOrder = () => {
-    const payload = orderRows.map(orderRows => ({productId: orderRows.product.id, quantity: orderRows.quantity}));
+    const payload = orderRows.map(orderRow => ({productId: orderRow.product.id, quantity: orderRow.quantity}));
 
     fetch(import.meta.env.VITE_BACK_URL + "/orders?personId=1", {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        //"Authorization": "Bearer " + sessionStorage.getItem("token")
+        // jwt.io: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30
       }
-    }) .then(res => res.json())
-    .then(json => alert("Lisasid edukalt tellimuse ID-ga: " + json.id))
+    }).then(res => res.json())
+      .then(json => {
+        if (json.message && json.timestamp && json.status) {
+					alert("Juhtus viga: " + json.message);
+					return;
+				}
+        // kui suunan Reacti sees oma localhostis, siis kasutan useNavigate, navigate()
+        // kui suunan välisele URL-le, pean kasutama JavaScripti suunamist
+        window.location.href = json.url;
+      }) // toastify: https://www.npmjs.com/package/react-toastify
+      // react-hot-toast: https://react-hot-toast.com/
   }
 
   return (
@@ -82,23 +93,24 @@ function Cart() {
             <option>Pakiautomaat 2</option>
           </select>
         </> }
-      
+
     </div>
   )
 }
 
 export default Cart
 
-// Tühjenda funktsioon - tehtud
-// Ütle kui ostukorv tühi on - tehtud
-// Ostukorvi kogusumma arvutamine - tehtud
-// Backendi uue tellimuse saatmine - tehtud
-// Signup --> isiku lisamine - tehtud
+// Tühjenda funktsioon++
+// Ütle kui ostukorv tühi on++
+// Ostukorvi kogusumma arvutamine++
+// Backendi uue tellimuse saatmine++
+// Signup --> isiku lisamine++
 
-// Profile --> aadressi lisamine
-// Login, aga tokenit ei hakka väljastama
+// Profile --> aadressi lisamine++
+// Login, aga tokenit ei hakka väljastama++
+
+// API päringud: pakiautomaadid++
 
 // ProductDetails
-// EditProduct
 
-//API p2ringud: pakiautomaadid
+// EditProduct
